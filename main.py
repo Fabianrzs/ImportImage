@@ -34,7 +34,7 @@ for letter in ABCD:
             countData = 0
             for data in row:
                 sheet.cell(row=countRow, column=countCol, value=data)
-                countData += data
+                countData += data/255
             sheet.cell(row=countRow, column=countCol, value=countData)
             countCol += 1
         countRow += 1
