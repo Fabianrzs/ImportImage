@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
-from tkinter import messagebox, Label, Entry, StringVar
+from tkinter import messagebox, Label
 
 
 print("Librerias Leidas")
@@ -21,11 +21,6 @@ def loadMessage():
     labelframe.place(x=350, y=410)
 
 def loadCompents(windows):
-
-    epoch = StringVar()
-    Error = StringVar()
-    Theta = StringVar()
-
     labelframe = Label(windows, text="Entrenamiento de redes neuronales con Bagpropagations")
     labelframe.place(x=10, y=30)
 
@@ -36,21 +31,11 @@ def loadCompents(windows):
     labelEpoch = Label(windows, text="Iteraciones")
     labelEpoch.place(x=10, y=150)
 
-    entryEpoch = Entry(windows, relief="flat", width=20, textvariable=epoch)
-    entryEpoch.place(x=10, y=180)
-
     labelError = Label(windows, text="Error Permitido")
     labelError.place(x=10, y=230)
 
-    entryError = Entry(windows, relief="flat", width=20, textvariable=Error)
-    entryError.place(x=10, y=260)
-
     labelTheta = Label(windows, text="Taza de aprenzaje")
     labelTheta.place(x=10, y=310)
-
-    entryTheta = Entry(windows, relief="flat", width=20, textvariable=Theta)
-    entryTheta.place(x=10, y=340)
-
 
     buttonLoad = tk.Button(windows, command=loadImage, text="Cargar Imagen", height=2, width=15)
     buttonLoad.place(x=300, y=450)
@@ -63,7 +48,5 @@ windows = tk.Tk()
 windows.title("Testing")
 windows.geometry("700x500")
 loadCompents(windows)
-valores = ""
-print("Hola: ",valores )
 windows.mainloop()
 
