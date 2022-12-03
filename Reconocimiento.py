@@ -20,11 +20,13 @@ def loadMessage():
     labelframe = Label(windows, text="No sea Bruto Eso todavia no sirve")
     labelframe.place(x=350, y=410)
 
+    print(Theta.get())
+    print(Error.get())
+    print(epoch.get())
+
 def loadCompents(windows):
 
-    epoch = StringVar()
-    Error = StringVar()
-    Theta = StringVar()
+
 
     labelframe = Label(windows, text="Entrenamiento de redes neuronales con Bagpropagations")
     labelframe.place(x=10, y=30)
@@ -59,10 +61,19 @@ def loadCompents(windows):
     buttonLearn.place(x=10, y=400)
 
 
+
 windows = tk.Tk()
 windows.title("Testing")
 windows.geometry("700x500")
+
+
+epoch = DoubleVar()
+Error = DoubleVar()
+Theta = DoubleVar()
+
 loadCompents(windows)
+
+
 valores = ""
 print("Hola: ",valores )
 windows.mainloop()
