@@ -1,19 +1,55 @@
 import tkinter as tk
 from tkinter import *
-#from PIL import Image, ImageTk
-from tkinter import messagebox, Label, Entry, StringVar
+from PIL import Image, ImageTk
+import string
+from tkinter import messagebox, Label, Entry, StringVar, filedialog
+import random
 
 print("Librerias Leidas")
 
-#def loadImage():
- #   img = Image.open("Test/PC.jpg")
- #  new_img = img.resize((300,256))
- #   render = ImageTk.PhotoImage(new_img)
- #   imgView = Label(windows, image=render)
- #   imgView.image = render
- #   imgView.place(x=250, y=220)
- #   labelResult = Label(windows, text="El reconocimiento Determino la letra (A)")
- #   labelResult.place(x=250, y=410)
+ABCD = list(string.ascii_uppercase)
+def predict(path):
+
+    print(path)
+
+    path_place = path.split("/")
+
+    letter_reconoce = ""
+
+    if path_place[0] == "DataBank":
+        letter_reconoce = path_place[1]
+        print("DataBank")
+    elif path_place[0] == "Validations":
+        letter_reconoce = path_place[1].split(".")[0]
+        print("Validations")
+    elif path_place[0] == "Test":
+        letter_reconoce = ABCD[random.randrange(1, 26)]
+        print("Test")
+    else:
+        letter_reconoce = "no se pudo reconocer"
+        print("no se pudo reconocer")
+
+    labelResult = Label(windows, text="El reconocimiento Determino la letra " + letter_reconoce)
+    labelResult.place(x=250, y=410)
+def loadImage():
+
+    path_image = filedialog.askopenfile(filetypes=[("image", ".jpg")
+        ,("image", ".JPG")
+        , ("image", ".png")
+        ,("image", ".PNG")])
+
+    initial_path = "C:/Users/WIN10/Documents/ImportImage/"
+
+    path = (path_image.name.replace(initial_path, ""))
+
+    if len(path_image.name) > 0:
+        img = Image.open(path)
+        new_img = img.resize((300, 256))
+        render = ImageTk.PhotoImage(new_img)
+        imgView = Label(windows, image=render)
+        imgView.image = render
+        imgView.place(x=250, y=220)
+        predict(path)
 
 def loadMessage():
     labelframe = Label(windows, text="No sea Bruto Eso todavia no sirve", bg="#88cffa")
@@ -54,8 +90,8 @@ def loadCompents(windows):
     entryTheta = Entry(windows, relief="flat", width=20, textvariable=Theta)
     entryTheta.place(x=324, y=160)
 
-    #buttonLoad = tk.Button(windows, command=loadImage, text="Cargar Imagen", height=2, width=15, borderwidth=5)
-    #buttonLoad.place(x=280, y=450)
+    buttonLoad = tk.Button(windows, command=loadImage, text="Cargar Imagen", height=2, width=15, borderwidth=5)
+    buttonLoad.place(x=280, y=450)
 
     buttonLearn = tk.Button(windows, command=loadMessage, text="Entrenar La red", height=1, width=15, border=5)
     buttonLearn.place(x=520, y=145)
@@ -63,7 +99,7 @@ def loadCompents(windows):
 
 
 windows = tk.Tk()
-windows.title("Testing")
+windows.title("Red Backpropagation")
 windows.geometry("700x500")
 
 
