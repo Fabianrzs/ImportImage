@@ -1,5 +1,5 @@
 import openpyxl
-import pandas as pd
+
 
 
 #Leer los archivos desde el excel

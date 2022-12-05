@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import string
 from tkinter import messagebox, Label, Entry, StringVar, filedialog
 import random
+from ReadExcel import readfiles
 
 print("Librerias Leidas")
 
@@ -18,19 +19,14 @@ def predict(path):
 
     if path_place[0] == "DataBank":
         letter_reconoce = path_place[1]
-        print("DataBank")
     elif path_place[0] == "Validations":
         letter_reconoce = path_place[1].split(".")[0]
-        print("Validations")
     elif path_place[0] == "Test":
         letter_reconoce = ABCD[random.randrange(1, 26)]
-        print("Test")
     else:
         letter_reconoce = "no se pudo reconocer"
-        print("no se pudo reconocer")
-
-    labelResult = Label(windows, text="El reconocimiento Determino la letra " + letter_reconoce)
-    labelResult.place(x=250, y=410)
+    labelResult = Label(windows, text="El reconocimiento determino la letra " + letter_reconoce)
+    labelResult.place(x=190, y=540)
 def loadImage():
 
     path_image = filedialog.askopenfile(filetypes=[("image", ".jpg")
@@ -44,17 +40,21 @@ def loadImage():
 
     if len(path_image.name) > 0:
         img = Image.open(path)
-        new_img = img.resize((300, 256))
+        new_img = img.resize((350, 306))
         render = ImageTk.PhotoImage(new_img)
         imgView = Label(windows, image=render)
         imgView.image = render
-        imgView.place(x=250, y=220)
+        imgView.place(x=190, y=220)
         predict(path)
 
 def loadMessage():
-    labelframe = Label(windows, text="No sea Bruto Eso todavia no sirve", bg="#88cffa")
-    labelframe.place(x=250, y=410)
 
+    if(Theta.get() == 0.0  or Error.get() == 0.0 or epoch.get()== 0.0):
+        labelframe = Label(windows, text="Llene todos los campos", bg="#88cffa")
+        labelframe.place(x=250, y=410)
+    else:
+        labelframe = Label(windows, text="Cargando el entrenamiento, Espere", bg="#88cffa")
+        labelframe.place(x=250, y=410)
     print(Theta.get())
     print(Error.get())
     print(epoch.get())
@@ -90,18 +90,20 @@ def loadCompents(windows):
     entryTheta = Entry(windows, relief="flat", width=20, textvariable=Theta)
     entryTheta.place(x=324, y=160)
 
-    buttonLoad = tk.Button(windows, command=loadImage, text="Cargar Imagen", height=2, width=15, borderwidth=5)
-    buttonLoad.place(x=280, y=450)
+    buttonLoad = tk.Button(windows, command=loadImage, text="Cargar Imagen", height=1, width=15, borderwidth=3)
+    buttonLoad.place(x=280, y=750)
 
-    buttonLearn = tk.Button(windows, command=loadMessage, text="Entrenar La red", height=1, width=15, border=5)
-    buttonLearn.place(x=520, y=145)
-
+    buttonLearn = tk.Button(windows, command=loadMessage, text="Entrenar La red", height=1, width=15, border=3)
+    buttonLearn.place(x=520, y=155)
 
 
 windows = tk.Tk()
 windows.title("Red Backpropagation")
-windows.geometry("700x500")
+windows.geometry("700x800")
 
+windowsPesos = tk.Tk()
+
+windowsPesos.title("Pesos de entrenamiento")
 
 epoch = DoubleVar()
 Error = DoubleVar()
@@ -109,6 +111,13 @@ Theta = DoubleVar()
 
 loadCompents(windows)
 
+
+
+for r in range(0, 5):
+    for c in range(0, 5):
+        cell = Entry(windowsPesos, width=10)
+        cell.grid(padx=5, pady=5, row=r, column=c)
+        cell.insert(0, '({}, {})'.format(r, c))
 
 valores = ""
 print("Hola: ",valores )
