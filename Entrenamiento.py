@@ -1,41 +1,21 @@
-import openpyxl
+import numpy as np
+from numpy import random
+import matplotlib.pyplot as plt
 
 
+class MLP():
+    def __init__(self, xi, d, w_1, w_2, us, uoc, precision, epocas, fac_ap, n_ocultas, n_entras, n_salidas):
+        print("Init")
+def tanh(x):
+    return np.tanh(x)
 
-#Leer los archivos desde el excel
+def dtanh(x):
+    return 1.0 - np.tanh(x)**2
 
-wb = openpyxl.Workbook()
+def sigmoide(x):
+    return 1/(1+np.exp(-x))
 
+def dsingmoide(x):
+    s =  1/(1+np.exp((-x)))
+    return s*(1-s)
 
-theta = 0.4
-
-aprove = 0.2
-
-#Definicion de pesos
-#Pesos por entradas o columnas
-w = 0.3
-
-epochs = 0
-
-#Vector de entradas
-#Dados por columnas
-x1 = 1 #Columnas del archivo
-x2 = 1 #Columnas del archivo Hasta finalizar
-
-
-#Matriz de validacion
-#Dada por columnas
-s = 3 #Columnas del archivo de validacion
-
-n_muestra = len(s) #Numero de salidas asociadas
-
-
-
-def entrenar(theta, aprove, pesos, epochs, entradas, salidas, muestras):
-
-    errores = True
-    while errores :
-        errores = False
-        for i in range (muestras):
-
-            z = ((entradas[i][i] * pesos[i]) + ())
